@@ -1,0 +1,68 @@
+// All Blessings Flow — shared global JS (mobile nav toggle, dynamic copyright year)
+(function () {
+  function init() {
+    document.documentElement.classList.remove('no-js');
+
+    // Dynamic copyright year — every page's footer has <span id="copyright-year"></span>
+    var yearEl = document.getElementById('copyright-year');
+    if (yearEl) {
+      yearEl.textContent = new Date().getFullYear();
+    }
+
+    // Mobile nav toggle
+    var toggle = document.querySelector('.nav-toggle');
+    var nav = document.querySelector('.site-nav');
+    if (toggle && nav) {
+      var overlay = document.createElement('div');
+      overlay.className = 'nav-overlay';
+      document.body.appendChild(overlay);
+
+      function closeNav() {
+        document.body.classList.remove('nav-open');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+
+      function openNav() {
+        document.body.classList.add('nav-open');
+        toggle.setAttribute('aria-expanded', 'true');
+      }
+
+      toggle.addEventListener('click', function () {
+        var isOpen = document.body.classList.contains('nav-open');
+        if (isOpen) {
+          closeNav();
+        } else {
+          openNav();
+        }
+      });
+
+      overlay.addEventListener('click', closeNav);
+
+      nav.querySelectorAll('a').forEach(function (link) {
+        link.addEventListener('click', closeNav);
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeNav();
+      });
+    }
+
+    // Sticky nav shadow on scroll
+    var siteHeader = document.querySelector('.site-header');
+    if (siteHeader) {
+      window.addEventListener('scroll', function () {
+        if (window.scrollY > 20) {
+          siteHeader.classList.add('is-scrolled');
+        } else {
+          siteHeader.classList.remove('is-scrolled');
+        }
+      });
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();

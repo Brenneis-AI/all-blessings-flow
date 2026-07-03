@@ -1,0 +1,255 @@
+/* All Blessings Flow — Global Styles */
+/* Imports brand.css, resets, base styles, shared components */
+
+@import url('brand.css');
+
+/*
+  Motion moments committed for this build (Step 0 — UI/UX Design Thinking):
+  1. Hero entrance — headline/subhead/CTAs fade up in staggered sequence on load (index.html hero)
+  2. Primary CTA hover — .btn-primary lifts + brightens on hover/focus
+  3. Featured cards (Impact Stats + Locations) — hover lift, plus a one-time IntersectionObserver
+     reveal-on-scroll as each card group enters the viewport (index.js)
+  Nothing else animates. No parallax, no auto-play, no scroll-linked effects beyond the above.
+*/
+
+/* ---- Reset ---- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: var(--text-body-line-height);
+  color: var(--color-on-surface);
+  background: var(--color-surface);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+ul {
+  list-style: none;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  color: var(--color-on-surface);
+}
+
+h1 {
+  font-size: var(--text-h1);
+  line-height: var(--text-h1-line-height);
+  font-weight: 700;
+  letter-spacing: var(--text-h1-letter-spacing);
+}
+
+h2 {
+  font-size: var(--text-h2);
+  line-height: var(--text-h2-line-height);
+  font-weight: 600;
+}
+
+h3 {
+  font-size: var(--text-h3);
+  line-height: var(--text-h3-line-height);
+  font-weight: 600;
+}
+
+/* ---- Skip Link ---- */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: var(--space-base);
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-default);
+  z-index: 1000;
+  transition: top 200ms ease;
+}
+
+.skip-link:focus {
+  top: var(--space-base);
+}
+
+/* ---- Focus states ---- */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid var(--color-secondary);
+  outline-offset: 2px;
+}
+
+/* ---- Container ---- */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-padding);
+}
+
+@media (min-width: 769px) {
+  .container {
+    padding-inline: var(--container-padding-desktop);
+  }
+}
+
+/* ---- Buttons ---- */
+.btn-primary,
+.btn-secondary,
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  min-height: 44px;
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-size: var(--text-label-lg);
+  font-weight: 600;
+  letter-spacing: var(--text-label-lg-letter-spacing);
+  line-height: var(--text-label-lg-line-height);
+  transition: transform 200ms ease, opacity 200ms ease, background 200ms ease;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+  color: var(--color-on-primary);
+  box-shadow: 0 4px 14px rgba(var(--color-primary-rgb), 0.3);
+}
+
+.btn-primary:hover,
+.btn-primary:focus-visible {
+  transform: translateY(-2px);
+  opacity: 0.92;
+}
+
+.btn-primary--large {
+  padding: var(--space-md) var(--space-xl);
+  font-size: 1.125rem;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--color-secondary);
+  border: 2px solid var(--color-secondary);
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus-visible {
+  background: var(--color-secondary);
+  color: var(--color-on-secondary);
+}
+
+.btn-ghost {
+  background: var(--color-on-surface);
+  color: var(--color-neutral-light);
+}
+
+.btn-tertiary-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  color: var(--color-primary);
+  font-weight: 600;
+  font-size: var(--text-label-lg);
+  text-decoration: underline;
+  text-decoration-color: rgba(var(--color-primary-rgb), 0.3);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 200ms ease;
+}
+
+.btn-tertiary-link:hover {
+  text-decoration-color: var(--color-primary);
+}
+
+.btn-tertiary-link .icon {
+  width: 18px;
+  height: 18px;
+}
+
+/* ---- Icon utility ---- */
+.icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.icon-sprite {
+  display: none;
+}
+
+/* ---- Skip Nav helpers ---- */
+main {
+  display: block;
+}
+
+/* ---- Section base ---- */
+.section {
+  padding-block: var(--section-padding-mobile);
+}
+
+@media (min-width: 769px) {
+  .section {
+    padding-block: var(--section-padding);
+  }
+}
+
+/* ---- Bento / Featured Card (Impact Stats + Locations) ---- */
+.bento-card {
+  background: var(--color-surface-container-low);
+  border: 1px solid rgba(var(--color-primary-rgb), 0);
+  border-color: color-mix(in srgb, var(--color-outline-variant) 30%, transparent);
+  border-radius: var(--radius-xl);
+  transition: transform 300ms ease, box-shadow 300ms ease;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.bento-card.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 500ms ease, transform 500ms ease;
+}
+
+.bento-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(var(--color-neutral-dark-rgb), 0.08);
+}
+
+.bento-card.is-visible:hover {
+  transform: translateY(-4px);
+}
+
+/* ---- Skip link visible fallback for no-JS reveal (progressive enhancement) ---- */
+.no-js .bento-card {
+  opacity: 1;
+  transform: none;
+}
