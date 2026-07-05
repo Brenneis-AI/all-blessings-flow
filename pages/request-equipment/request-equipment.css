@@ -1,0 +1,9 @@
+/* All Blessings Flow — Request Equipment page styles */
+/* Most layout comes from shared classes in global/global.css (.page-hero, .plan-section, .equipment-list, .site-form) */
+
+.plan-step {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

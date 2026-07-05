@@ -1,0 +1,62 @@
+/* All Blessings Flow — Our Mission page styles */
+
+.page-intro {
+  background: var(--color-surface-container-low);
+}
+
+.page-intro__content {
+  max-width: 720px;
+}
+
+.page-intro__content p {
+  color: var(--color-on-surface-variant);
+  font-size: var(--text-body-lg);
+  margin-top: var(--space-md);
+}
+
+.page-intro__pullquote {
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  line-height: var(--text-h2-line-height);
+  color: var(--color-primary) !important;
+  margin-top: var(--space-lg) !important;
+  font-style: normal;
+}
+
+.founder-note {
+  background: var(--color-surface);
+}
+
+.founder-note__content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-xl);
+  align-items: center;
+}
+
+.founder-note__image {
+  aspect-ratio: 3 / 2;
+}
+
+.founder-note__content p {
+  color: var(--color-on-surface-variant);
+  margin-top: var(--space-sm);
+}
+
+.copy-flag {
+  font-style: italic;
+  opacity: 0.75;
+}
+
+.founder-note__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+}
+
+@media (min-width: 769px) {
+  .founder-note__content {
+    grid-template-columns: 1fr 1fr;
+  }
+}

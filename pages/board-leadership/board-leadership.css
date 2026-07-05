@@ -1,0 +1,81 @@
+/* All Blessings Flow — Board & Leadership page styles */
+
+.page-intro {
+  background: var(--color-surface-container-low);
+}
+
+.page-intro__content {
+  max-width: 720px;
+}
+
+.page-intro__content p {
+  color: var(--color-on-surface-variant);
+  font-size: var(--text-body-lg);
+  margin-top: var(--space-md);
+}
+
+.board-grid-section {
+  background: var(--color-surface);
+}
+
+.board-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+}
+
+.board-card {
+  padding: var(--space-lg) var(--space-md);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.board-card__avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  margin-bottom: var(--space-sm);
+}
+
+.board-card h2 {
+  font-size: var(--text-h3);
+  line-height: var(--text-h3-line-height);
+}
+
+.board-card__title {
+  color: var(--color-secondary);
+  font-size: var(--text-small);
+  font-weight: 600;
+  margin-bottom: var(--space-sm);
+}
+
+.copy-flag {
+  font-style: italic;
+  opacity: 0.75;
+  font-size: var(--text-small);
+}
+
+.board-grid-section__cta {
+  text-align: center;
+  margin-top: var(--space-xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  flex-wrap: wrap;
+}
+
+@media (min-width: 600px) {
+  .board-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .board-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

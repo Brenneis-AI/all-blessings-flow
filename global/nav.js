@@ -47,6 +47,35 @@
       });
     }
 
+    // About dropdown toggle (desktop click + mobile inline expand)
+    var dropdown = document.querySelector('.site-nav__dropdown');
+    var dropdownToggle = document.querySelector('.site-nav__dropdown-toggle');
+    if (dropdown && dropdownToggle) {
+      function closeDropdown() {
+        dropdown.classList.remove('is-open');
+        dropdownToggle.setAttribute('aria-expanded', 'false');
+      }
+
+      dropdownToggle.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var isOpen = dropdown.classList.contains('is-open');
+        if (isOpen) {
+          closeDropdown();
+        } else {
+          dropdown.classList.add('is-open');
+          dropdownToggle.setAttribute('aria-expanded', 'true');
+        }
+      });
+
+      document.addEventListener('click', function (e) {
+        if (!dropdown.contains(e.target)) closeDropdown();
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeDropdown();
+      });
+    }
+
     // Sticky nav shadow on scroll
     var siteHeader = document.querySelector('.site-header');
     if (siteHeader) {

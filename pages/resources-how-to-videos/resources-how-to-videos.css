@@ -1,0 +1,51 @@
+/* All Blessings Flow — Resources / How-To Videos page styles */
+
+.videos-section {
+  background: var(--color-surface);
+}
+
+.videos-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+}
+
+.video-card {
+  padding: var(--space-lg) var(--space-md);
+  display: block;
+}
+
+.video-card h2 {
+  font-size: var(--text-h3);
+  line-height: var(--text-h3-line-height);
+  color: var(--color-on-surface);
+  margin-bottom: var(--space-sm);
+}
+
+.video-card p {
+  color: var(--color-secondary);
+  font-weight: 600;
+}
+
+.videos-section__note {
+  text-align: center;
+  color: var(--color-on-surface-variant);
+  font-size: var(--text-small);
+  margin-top: var(--space-lg);
+}
+
+.videos-section__cta {
+  text-align: center;
+  margin-top: var(--space-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  flex-wrap: wrap;
+}
+
+@media (min-width: 769px) {
+  .videos-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

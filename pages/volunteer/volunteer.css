@@ -1,0 +1,39 @@
+/* All Blessings Flow — Volunteer page styles */
+
+.page-hero__image {
+  aspect-ratio: 16 / 9;
+  margin-top: var(--space-lg);
+}
+
+.positions-section {
+  background: var(--color-surface);
+}
+
+.positions-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+}
+
+.position-card {
+  padding: var(--space-lg) var(--space-md);
+}
+
+.position-card__icon {
+  color: var(--color-secondary);
+  margin-bottom: var(--space-sm);
+}
+
+.position-card h3 {
+  margin-bottom: var(--space-sm);
+}
+
+.position-card p {
+  color: var(--color-on-surface-variant);
+}
+
+@media (min-width: 769px) {
+  .positions-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

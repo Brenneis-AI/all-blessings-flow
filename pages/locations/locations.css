@@ -1,0 +1,76 @@
+/* All Blessings Flow — Locations page styles */
+
+.locations-detail {
+  background: var(--color-surface);
+}
+
+.locations-detail__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+}
+
+.location-detail-card {
+  padding: var(--space-md);
+}
+
+.location-detail-card h2 {
+  color: var(--color-primary);
+  margin-bottom: var(--space-sm);
+}
+
+.location-detail-card__address {
+  color: var(--color-on-surface-variant);
+  margin-bottom: var(--space-md);
+}
+
+.location-detail-card__hours {
+  width: 100%;
+  font-size: var(--text-small);
+  color: var(--color-on-surface-variant);
+  margin-bottom: var(--space-md);
+  border-collapse: collapse;
+}
+
+.location-detail-card__hours tr {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.location-detail-card__time {
+  text-align: right;
+  font-weight: 600;
+}
+
+.location-detail-card__phone {
+  font-size: var(--text-small);
+  color: var(--color-on-surface-variant);
+  margin-bottom: var(--space-md);
+}
+
+.location-detail-card__map {
+  border-radius: var(--radius-lg);
+  width: 100%;
+}
+
+.location-detail-card__map-link {
+  width: 100%;
+}
+
+.copy-flag {
+  font-style: italic;
+  opacity: 0.75;
+}
+
+.locations-detail__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-sm);
+  margin-top: var(--space-xl);
+}
+
+@media (min-width: 1024px) {
+  .locations-detail__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

@@ -1,0 +1,35 @@
+/* All Blessings Flow — Donate Equipment page styles */
+/* Shared layout from global/global.css (.page-hero, .equipment-list, .site-form, .donation-form-section) */
+
+.page-hero__image {
+  aspect-ratio: 16 / 9;
+  margin-top: var(--space-lg);
+}
+
+.equipment-list__not-accepted-heading {
+  margin-top: var(--space-xl);
+}
+
+.equipment-list__not-accepted {
+  color: var(--color-on-surface-variant);
+}
+
+.dropoff-info {
+  background: var(--color-surface);
+}
+
+.dropoff-info__content {
+  max-width: 560px;
+  text-align: center;
+}
+
+.dropoff-info__content p {
+  color: var(--color-on-surface-variant);
+  margin-block: var(--space-md);
+}
+
+.donation-form-section__note {
+  color: var(--color-on-surface-variant);
+  font-size: var(--text-small);
+  margin-bottom: var(--space-lg);
+}

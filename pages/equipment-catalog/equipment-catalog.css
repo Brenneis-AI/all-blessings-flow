@@ -1,0 +1,46 @@
+/* All Blessings Flow — Equipment Catalog page styles */
+
+.catalog-categories {
+  background: var(--color-surface);
+}
+
+.catalog-categories__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+}
+
+.catalog-category {
+  padding: var(--space-lg) var(--space-md);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.catalog-category__icon {
+  color: var(--color-secondary);
+  margin-bottom: var(--space-sm);
+}
+
+.catalog-category p {
+  color: var(--color-on-surface-variant);
+  margin-top: var(--space-sm);
+}
+
+.catalog-categories__cta {
+  text-align: center;
+  margin-top: var(--space-xl);
+}
+
+@media (min-width: 600px) {
+  .catalog-categories__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .catalog-categories__grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

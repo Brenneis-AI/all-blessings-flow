@@ -1,0 +1,65 @@
+/* All Blessings Flow — Our Partners page styles */
+
+.page-intro {
+  background: var(--color-surface-container-low);
+}
+
+.page-intro__content {
+  max-width: 720px;
+}
+
+.page-intro__content p {
+  color: var(--color-on-surface-variant);
+  font-size: var(--text-body-lg);
+  margin-top: var(--space-md);
+}
+
+.partners-list {
+  background: var(--color-surface);
+}
+
+.partner-category {
+  margin-bottom: var(--space-xl);
+}
+
+.partner-category h2 {
+  color: var(--color-primary);
+  margin-bottom: var(--space-md);
+  padding-bottom: var(--space-xs);
+  border-bottom: 2px solid var(--color-border);
+}
+
+.partner-category__list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-sm) var(--space-lg);
+  color: var(--color-on-surface-variant);
+}
+
+.partner-category__list li {
+  padding-block: var(--space-xs);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.copy-flag {
+  font-style: italic;
+  opacity: 0.75;
+  font-size: var(--text-small);
+  margin-top: var(--space-lg);
+}
+
+.partners-list__cta {
+  text-align: center;
+  margin-top: var(--space-xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  flex-wrap: wrap;
+}
+
+@media (min-width: 769px) {
+  .partner-category__list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

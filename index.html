@@ -122,15 +122,24 @@
       <a href="index.html" class="site-header__logo">All Blessings Flow</a>
 
       <nav class="site-nav" aria-label="Primary">
-        <a href="#" class="site-nav__link site-nav__link--active">Request Equipment</a>
-        <a href="#" class="site-nav__link">Donate</a>
-        <a href="#" class="site-nav__link">Volunteer</a>
-        <a href="#" class="site-nav__link">Locations</a>
+        <div class="site-nav__dropdown">
+          <button type="button" class="site-nav__link site-nav__dropdown-toggle" aria-expanded="false">About</button>
+          <div class="site-nav__dropdown-menu">
+            <a href="pages/our-mission/our-mission.html" class="site-nav__dropdown-link">Our Mission</a>
+            <a href="pages/board-leadership/board-leadership.html" class="site-nav__dropdown-link">Board &amp; Leadership</a>
+            <a href="pages/our-partners/our-partners.html" class="site-nav__dropdown-link">Our Partners</a>
+          </div>
+        </div>
+        <a href="pages/request-equipment/request-equipment.html" class="site-nav__link">Request Equipment</a>
+        <a href="pages/donate-equipment/donate-equipment.html" class="site-nav__link">Donate Equipment</a>
+        <a href="pages/volunteer/volunteer.html" class="site-nav__link">Volunteer</a>
+        <a href="pages/locations/locations.html" class="site-nav__link">Locations</a>
+        <a href="pages/contact/contact.html" class="site-nav__link">Contact</a>
       </nav>
 
       <div class="site-header__actions">
-        <a href="#" class="btn-secondary site-header__cta-secondary">Request Equipment</a>
-        <a href="#" class="btn-primary">Donate Now</a>
+        <a href="pages/request-equipment/request-equipment.html" class="btn-secondary site-header__cta-secondary">Request Equipment</a>
+        <a href="pages/donate/donate.html" class="btn-primary">Donate Now</a>
         <button type="button" class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
           <span></span><span></span><span></span>
         </button>
@@ -158,15 +167,15 @@
         <h1 class="hero__headline">Giving Families Back Their Independence.</h1>
         <p class="hero__subhead">Free medical equipment for families across Central Virginia who need it most — powered by your kindness and our community's shared resources.</p>
         <div class="hero__ctas">
-          <a href="#" class="btn-primary btn-primary--large">Donate Now</a>
-          <a href="#" class="btn-secondary">Request Equipment</a>
+          <a href="pages/donate/donate.html" class="btn-primary btn-primary--large">Donate Now</a>
+          <a href="pages/request-equipment/request-equipment.html" class="btn-secondary">Request Equipment</a>
         </div>
         <div class="hero__tertiary-links">
-          <a href="#" class="btn-tertiary-link">
+          <a href="pages/donate-equipment/donate-equipment.html" class="btn-tertiary-link">
             <svg class="icon"><use href="#icon-heart"></use></svg>
             Donate Equipment
           </a>
-          <a href="#" class="btn-tertiary-link">
+          <a href="pages/volunteer/volunteer.html" class="btn-tertiary-link">
             <svg class="icon"><use href="#icon-handshake"></use></svg>
             Volunteer
           </a>
@@ -243,7 +252,7 @@
           <h2>One blessing becomes another.</h2>
           <p>All Blessings Flow began with a simple observation: high-quality medical equipment often sits idle in closets while families struggle to afford the care tools they need. We bridge that gap.</p>
           <p>Every item donated to us is cleaned, inspected, and passed forward to another person in our community — continuing a cycle of care that has touched tens of thousands of lives across Central Virginia.</p>
-          <a href="#" class="btn-tertiary-link">
+          <a href="pages/our-mission/our-mission.html" class="btn-tertiary-link">
             Read our story
             <svg class="icon"><use href="#icon-arrow-right"></use></svg>
           </a>
@@ -306,7 +315,7 @@
           </div>
           <p class="testimonial__name">Martha G.</p>
           <p class="testimonial__role">Caregiver &amp; Client</p>
-          <a href="#" class="btn-tertiary-link testimonial__link">See more stories</a>
+          <a href="pages/our-mission/our-mission.html" class="btn-tertiary-link testimonial__link">See more stories</a>
         </div>
       </div>
     </section>
@@ -321,15 +330,15 @@
             <p>Your support directly impacts lives in our local community. Choose how you want to make a difference today.</p>
           </div>
           <div class="secondary-cta__actions">
-            <a href="#" class="btn-primary">
+            <a href="pages/donate/donate.html" class="btn-primary">
               <svg class="icon"><use href="#icon-heart"></use></svg>
               Donate
             </a>
-            <a href="#" class="btn-secondary">
+            <a href="pages/volunteer/volunteer.html" class="btn-secondary">
               <svg class="icon"><use href="#icon-handshake"></use></svg>
               Volunteer
             </a>
-            <a href="#" class="btn-ghost secondary-cta__give-equipment">
+            <a href="pages/donate-equipment/donate-equipment.html" class="btn-ghost secondary-cta__give-equipment">
               <svg class="icon"><use href="#icon-medical"></use></svg>
               Give Equipment
             </a>
@@ -349,7 +358,7 @@
           <br>&copy; <span id="copyright-year"></span> All Blessings Flow.
         </p>
         <div class="site-footer__socials">
-          <a href="#" class="site-footer__social-link" aria-label="All Blessings Flow on social media">
+          <a href="https://www.facebook.com/allblessingsflow" class="site-footer__social-link" aria-label="All Blessings Flow on Facebook" target="_blank" rel="noopener">
             <svg class="icon"><use href="#icon-smile"></use></svg>
           </a>
           <a href="mailto:info@allblessingsflow.org" class="site-footer__social-link" aria-label="Email All Blessings Flow">
@@ -362,18 +371,21 @@
         <div class="site-footer__column">
           <h4>Quick Links</h4>
           <ul>
-            <li><a href="#">About Us</a></li>
-            <li><a href="#how-it-works">How it Works</a></li>
-            <li><a href="#locations">Locations</a></li>
-            <li><a href="#">Events</a></li>
+            <li><a href="pages/our-mission/our-mission.html">Our Mission</a></li>
+            <li><a href="pages/board-leadership/board-leadership.html">Board &amp; Leadership</a></li>
+            <li><a href="pages/our-partners/our-partners.html">Our Partners</a></li>
+            <li><a href="pages/equipment-catalog/equipment-catalog.html">Equipment Catalog</a></li>
+            <li><a href="pages/resources-how-to-videos/resources-how-to-videos.html">How-To Videos</a></li>
           </ul>
         </div>
         <div class="site-footer__column">
           <h4>Support</h4>
           <ul>
-            <li><a href="#">Donate Now</a></li>
-            <li><a href="#">Volunteer</a></li>
-            <li><a href="#">Equipment Donation</a></li>
+            <li><a href="pages/donate/donate.html">Donate Now</a></li>
+            <li><a href="pages/volunteer/volunteer.html">Volunteer</a></li>
+            <li><a href="pages/donate-equipment/donate-equipment.html">Donate Equipment</a></li>
+            <li><a href="pages/locations/locations.html">Locations</a></li>
+            <li><a href="pages/contact/contact.html">Contact</a></li>
             <li><a href="#">Privacy Policy</a></li>
           </ul>
         </div>
@@ -401,6 +413,7 @@
   </footer>
 
   <script src="global/nav.js" defer></script>
+  <script src="global/locations-data.js" defer></script>
   <script src="index.js" defer></script>
 </body>
 </html>

@@ -1,0 +1,37 @@
+/* All Blessings Flow — Contact page styles */
+
+.contact-info-section {
+  background: var(--color-surface);
+}
+
+.contact-info-section__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-xl);
+}
+
+.contact-info-card {
+  padding: var(--space-lg);
+}
+
+.contact-info-card p {
+  color: var(--color-on-surface-variant);
+  margin-bottom: var(--space-sm);
+}
+
+.contact-info-card p a {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+.contact-info-card__map {
+  border-radius: var(--radius-lg);
+  width: 100%;
+  margin-top: var(--space-md);
+}
+
+@media (min-width: 1024px) {
+  .contact-info-section__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
