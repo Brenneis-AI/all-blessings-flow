@@ -4,12 +4,18 @@
 @import url('brand.css');
 
 /*
-  Motion moments committed for this build (Step 0 — UI/UX Design Thinking):
+  Motion moments — updated 2026-07-05 (client-directed design refinement pass, extending the
+  original 3-moment budget deliberately, per Adam's explicit request):
   1. Hero entrance — headline/subhead/CTAs fade up in staggered sequence on load (index.html hero)
-  2. Primary CTA hover — .btn-primary lifts + brightens on hover/focus
-  3. Featured cards (Impact Stats + Locations) — hover lift, plus a one-time IntersectionObserver
-     reveal-on-scroll as each card group enters the viewport (index.js)
-  Nothing else animates. No parallax, no auto-play, no scroll-linked effects beyond the above.
+  2. Button press/active states — all primary/secondary/ghost buttons scale down subtly on :active,
+     not just hover, so touch and mouse users both get tactile feedback
+  3. Reveal-on-scroll — .bento-card and .reveal-on-scroll elements fade/lift into place via a single
+     shared IntersectionObserver in global/nav.js. Applied consistently to: Impact Stats, How It Works
+     steps, Locations cards, and the Partner trust bar — not just the original Impact Stats one-off.
+  4. Form field focus — border-color + soft ring transition (200ms) on all form inputs, replacing an
+     instant outline snap, for both keyboard and mouse users
+  Still no parallax, no auto-play, no carousels, nothing longer than 500ms, no bounce/elastic easing.
+  This remains a deliberately still site outside these named moments.
 */
 
 /* ---- Reset ---- */
@@ -99,9 +105,19 @@ h3 {
 }
 
 /* ---- Focus states ---- */
+a,
+button,
+input,
+select,
+textarea {
+  transition: outline-offset 150ms ease;
+}
+
 a:focus-visible,
 button:focus-visible,
-input:focus-visible {
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
   outline: 3px solid var(--color-secondary);
   outline-offset: 2px;
 }
@@ -151,9 +167,24 @@ input:focus-visible {
   opacity: 0.92;
 }
 
+.btn-primary:active {
+  transform: translateY(0) scale(0.97);
+  opacity: 1;
+  box-shadow: 0 2px 6px rgba(var(--color-primary-rgb), 0.3);
+}
+
 .btn-primary--large {
   padding: var(--space-md) var(--space-xl);
   font-size: 1.125rem;
+}
+
+/* Header CTA "you are here" state — pairs with aria-current="page" on the rare
+   header CTA button that doubles as that page's only nav wayfinding cue
+   (e.g. "Donate Now" on the Donate page itself). Design refinement pass, 2026-07-05. */
+.btn-primary[aria-current='page'],
+.btn-secondary[aria-current='page'] {
+  outline: 2px solid var(--color-on-surface);
+  outline-offset: 2px;
 }
 
 .btn-secondary {
@@ -168,9 +199,21 @@ input:focus-visible {
   color: var(--color-on-secondary);
 }
 
+.btn-secondary:active {
+  transform: scale(0.97);
+  background: var(--color-secondary);
+  color: var(--color-on-secondary);
+  opacity: 0.85;
+}
+
 .btn-ghost {
   background: var(--color-on-surface);
   color: var(--color-neutral-light);
+}
+
+.btn-ghost:active {
+  transform: scale(0.97);
+  opacity: 0.85;
 }
 
 .btn-tertiary-link {
@@ -232,6 +275,55 @@ input:focus-visible {
 /* ---- Skip Nav helpers ---- */
 main {
   display: block;
+}
+
+/* ---- Section eyebrow (hierarchy via weight + color, not just size — design refinement pass, 2026-07-05) ----
+   Distinguishes a small category label ("IMPACT," "HOW IT WORKS") from the headline that follows it,
+   so two similarly-sized text elements don't compete for visual weight in the same viewport. */
+.section-eyebrow {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-secondary);
+  margin-bottom: var(--space-xs);
+}
+
+/* ---- Stat figure (hierarchy via weight + color — used for large proof numbers like "52,000+") ---- */
+.stat-figure {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--color-accent);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- Reveal-on-scroll (generalized motion pattern — design refinement pass, 2026-07-05) ----
+   Same visual language as .bento-card's reveal, but usable on any element/page. The IntersectionObserver
+   that flips .is-visible lives in global/nav.js so it runs on every page without per-page JS. */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 500ms ease, transform 500ms ease;
+}
+
+.no-js .reveal-on-scroll {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---- Footer / nav "you are here" active-link treatment (wayfinding — design refinement pass, 2026-07-05) ---- */
+.site-footer__column a.is-current-page {
+  color: var(--color-primary);
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-color: rgba(var(--color-primary-rgb), 0.4);
 }
 
 /* ==================== Site Header / Nav (shared across every page) ==================== */
@@ -602,13 +694,30 @@ body.nav-open .site-nav {
 .form-field select,
 .form-field textarea {
   min-height: 44px;
-  border: 1px solid var(--color-input-border);
+  border: 2px solid var(--color-input-border);
   border-radius: var(--radius-lg);
   padding: var(--space-sm);
   font-family: var(--font-body);
   font-size: var(--text-body);
   background: var(--color-surface-container-lowest);
   color: var(--color-on-surface);
+  transition: border-color 200ms ease, box-shadow 200ms ease;
+}
+
+/* Smooth focus ring — border-color + soft glow, per DESIGN.md's "2px soft-teal when focused" spec,
+   rather than an instant outline snap (design refinement pass, 2026-07-05) */
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+  border-color: var(--color-secondary);
+  box-shadow: 0 0 0 4px rgba(var(--color-secondary-rgb), 0.15);
+  outline: none;
+}
+
+.form-field input:focus-visible,
+.form-field select:focus-visible,
+.form-field textarea:focus-visible {
+  outline: none;
 }
 
 .form-field textarea {
@@ -627,6 +736,50 @@ body.nav-open .site-nav {
 
 .form-message--error {
   color: var(--color-error);
+}
+
+/* ---- Progressive disclosure form helpers (item 1 — design refinement pass, 2026-07-05) ---- */
+.form-field__optional {
+  font-weight: 400;
+  color: var(--color-text-muted);
+  font-size: var(--text-small);
+}
+
+.form-field-group {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+  margin-bottom: var(--space-md);
+  background: var(--color-surface-container-low);
+}
+
+.form-field--radio-group {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.form-field--radio-group legend {
+  font-size: var(--text-label-lg);
+  font-weight: 600;
+  margin-bottom: var(--space-xs);
+  padding: 0;
+}
+
+.form-field__radio-label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-weight: 400;
+  margin-bottom: var(--space-xs);
+  cursor: pointer;
+}
+
+.form-field__radio-label input[type="radio"] {
+  min-height: auto;
+  width: 18px;
+  height: 18px;
+  accent-color: var(--color-secondary);
 }
 
 /* ---- CSS image placeholder (used across new interior pages pending real photography) ---- */

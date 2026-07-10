@@ -87,6 +87,41 @@
         }
       });
     }
+
+    // Reveal-on-scroll — shared across every page (design refinement pass, 2026-07-05).
+    // Handles both .bento-card (Home's original pattern) and the newer generic .reveal-on-scroll
+    // class, so the same fade/lift-in treatment can be applied to How It Works steps, Locations
+    // cards, and the Partner trust bar without each page needing its own observer.
+    //
+    // Exposed as window.ABFObserveReveal(root) so scripts that inject markup AFTER this runs
+    // (e.g., index.js's dynamic location cards) can register their new elements too — otherwise
+    // content added post-DOMContentLoaded would silently never be observed.
+    var revealObserver = null;
+    if ('IntersectionObserver' in window) {
+      revealObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+    }
+
+    window.ABFObserveReveal = function (root) {
+      var scope = root || document;
+      var targets = scope.querySelectorAll('.bento-card, .reveal-on-scroll');
+      if (!targets.length) return;
+      if (!revealObserver) {
+        targets.forEach(function (el) { el.classList.add('is-visible'); });
+        return;
+      }
+      targets.forEach(function (el) {
+        revealObserver.observe(el);
+      });
+    };
+
+    window.ABFObserveReveal();
   }
 
   if (document.readyState === 'loading') {

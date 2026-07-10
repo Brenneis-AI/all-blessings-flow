@@ -79,28 +79,65 @@
     </section>
 
     <section class="section catalog-categories">
+      <!--
+        Stock status pattern (design refinement pass, 2026-07-05): each category card supports three
+        states via a modifier class on the outer .catalog-category div — .catalog-category--in-stock
+        (default), .catalog-category--low-stock, .catalog-category--empty. All four categories are
+        marked in-stock below since we have no real inventory data indicating otherwise — do not mark
+        a category low-stock or empty without confirming actual current stock with the client. The
+        matching badge text and stock-note copy are shown/hidden purely by CSS based on that modifier
+        class, so updating a category's real-world status going forward is a one-word class change,
+        not a markup rewrite. See the Low Stock / Empty example markup commented out below for the
+        exact pattern to copy when real inventory data is available.
+      -->
       <div class="container catalog-categories__grid">
-        <div class="simple-card catalog-category">
-          <svg class="icon icon-lg catalog-category__icon"><use href="#icon-armchair"></use></svg>
+        <div class="simple-card catalog-category catalog-category--in-stock reveal-on-scroll">
+          <div class="catalog-category__icon-circle">
+            <svg class="icon icon-lg"><use href="#icon-armchair"></use></svg>
+          </div>
+          <span class="catalog-category__badge">In Stock</span>
           <h2>Mobility</h2>
           <p>Wheelchairs, power wheelchairs and scooters, walkers, rollators, canes, crutches</p>
         </div>
-        <div class="simple-card catalog-category">
-          <svg class="icon icon-lg catalog-category__icon"><use href="#icon-medical"></use></svg>
+        <div class="simple-card catalog-category catalog-category--in-stock reveal-on-scroll">
+          <div class="catalog-category__icon-circle">
+            <svg class="icon icon-lg"><use href="#icon-medical"></use></svg>
+          </div>
+          <span class="catalog-category__badge">In Stock</span>
           <h2>Bathroom Safety</h2>
           <p>Shower chairs, tub benches, bedside commodes, raised toilet seats</p>
         </div>
-        <div class="simple-card catalog-category">
-          <svg class="icon icon-lg catalog-category__icon"><use href="#icon-package"></use></svg>
+        <div class="simple-card catalog-category catalog-category--in-stock reveal-on-scroll">
+          <div class="catalog-category__icon-circle">
+            <svg class="icon icon-lg"><use href="#icon-package"></use></svg>
+          </div>
+          <span class="catalog-category__badge">In Stock</span>
           <h2>Beds &amp; Lifts</h2>
           <p>Standard electric hospital beds, patient lifts, bed rails</p>
         </div>
-        <div class="simple-card catalog-category">
-          <svg class="icon icon-lg catalog-category__icon"><use href="#icon-heart"></use></svg>
+        <div class="simple-card catalog-category catalog-category--in-stock reveal-on-scroll">
+          <div class="catalog-category__icon-circle">
+            <svg class="icon icon-lg"><use href="#icon-heart"></use></svg>
+          </div>
+          <span class="catalog-category__badge">In Stock</span>
           <h2>Respiratory &amp; Daily Living</h2>
           <p>CPAP and BiPAP machines, reachers, sock-aids, recliner lift chairs</p>
         </div>
+        <!--
+          Example — Low Stock state (copy this modifier + note text pattern once real data confirms it):
+          <div class="simple-card catalog-category catalog-category--low-stock reveal-on-scroll"> ... </div>
+
+          Example — Empty state (friendly messaging, no blank gap where content would be):
+          <div class="simple-card catalog-category catalog-category--empty reveal-on-scroll">
+            <div class="catalog-category__icon-circle"><svg class="icon icon-lg"><use href="#icon-[name]"></use></svg></div>
+            <span class="catalog-category__badge">Currently Unavailable</span>
+            <h2>[Category Name]</h2>
+            <p>[category description]</p>
+            <p class="catalog-category__stock-note">This category is currently out of stock — check back soon, or <a href="../contact/contact.html">contact a location directly</a> to ask about specific items.</p>
+          </div>
+        -->
       </div>
+      <p class="catalog-categories__stock-legend">Availability can change daily based on what's been donated and requested — call a location ahead to confirm a specific item before visiting.</p>
 
       <p class="catalog-categories__cta"><a href="../request-equipment/request-equipment.html" class="btn-primary">Request Equipment</a></p>
     </section>
@@ -131,7 +168,7 @@
             <li><a href="../our-mission/our-mission.html">Our Mission</a></li>
             <li><a href="../board-leadership/board-leadership.html">Board &amp; Leadership</a></li>
             <li><a href="../our-partners/our-partners.html">Our Partners</a></li>
-            <li><a href="equipment-catalog.html">Equipment Catalog</a></li>
+            <li><a href="equipment-catalog.html" class="is-current-page" aria-current="page">Equipment Catalog</a></li>
             <li><a href="../resources-how-to-videos/resources-how-to-videos.html">How-To Videos</a></li>
           </ul>
         </div>

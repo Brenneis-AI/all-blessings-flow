@@ -92,6 +92,12 @@
   background: var(--color-surface-container-low);
 }
 
+.impact-stats__eyebrow {
+  display: block;
+  text-align: center;
+  margin-bottom: var(--space-lg);
+}
+
 .impact-stats__grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -112,10 +118,9 @@
 }
 
 .impact-stat__number {
-  font-family: var(--font-display);
+  /* font-family, font-weight, and color come from the shared .stat-figure class in global.css
+     (design refinement pass, 2026-07-05) — this rule only sets the page-specific size. */
   font-size: var(--text-h2);
-  font-weight: 600;
-  color: var(--color-primary);
 }
 
 .impact-stat__label {

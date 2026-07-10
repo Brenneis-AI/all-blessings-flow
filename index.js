@@ -1,35 +1,17 @@
-// All Blessings Flow — Home page JS (locations render via shared data, scroll-reveal for featured cards)
-// Location data now lives in global/locations-data.js (shared with the dedicated Locations page) —
-// loaded before this file in index.html.
+// All Blessings Flow — Home page JS (locations render via shared data)
+// Location data lives in global/locations-data.js (shared with the dedicated Locations page) —
+// loaded before this file in index.html. Reveal-on-scroll is handled globally by global/nav.js;
+// this file just re-registers the newly-injected location cards with that shared observer via
+// window.ABFObserveReveal(), since they're created after nav.js's initial scan runs.
 (function () {
-  function initCardReveal() {
-    var cards = document.querySelectorAll('.bento-card');
-    if (!cards.length) return;
-
-    if (!('IntersectionObserver' in window)) {
-      cards.forEach(function (c) { c.classList.add('is-visible'); });
-      return;
-    }
-
-    var observer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.15 });
-
-    cards.forEach(function (card) {
-      observer.observe(card);
-    });
-  }
-
   function init() {
-    if (typeof renderLocationCards === 'function') {
+    var locationsGrid = document.getElementById('locations-grid');
+    if (typeof renderLocationCards === 'function' && locationsGrid) {
       renderLocationCards('locations-grid');
+      if (typeof window.ABFObserveReveal === 'function') {
+        window.ABFObserveReveal(locationsGrid);
+      }
     }
-    initCardReveal();
   }
 
   if (document.readyState === 'loading') {

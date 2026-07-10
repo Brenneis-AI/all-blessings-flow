@@ -62,7 +62,7 @@
       </nav>
 
       <div class="site-header__actions">
-        <a href="request-equipment.html" class="btn-secondary site-header__cta-secondary">Request Equipment</a>
+        <a href="request-equipment.html" class="btn-secondary site-header__cta-secondary" aria-current="page">Request Equipment</a>
         <a href="../donate/donate.html" class="btn-primary">Donate Now</a>
         <button type="button" class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
           <span></span><span></span><span></span>
@@ -83,17 +83,17 @@
       <div class="container">
         <h2>How to Request Equipment</h2>
         <div class="plan-section__steps">
-          <div class="plan-step">
+          <div class="plan-step reveal-on-scroll">
             <div class="plan-step__icon"><svg class="icon"><use href="#icon-file-edit"></use></svg></div>
             <h3>Request Equipment</h3>
             <p>Fill out the form below or call one of our locations.</p>
           </div>
-          <div class="plan-step">
+          <div class="plan-step reveal-on-scroll">
             <div class="plan-step__icon"><svg class="icon"><use href="#icon-package"></use></svg></div>
             <h3>Get Matched</h3>
             <p>We review our inventory to find the right equipment for your needs.</p>
           </div>
-          <div class="plan-step">
+          <div class="plan-step reveal-on-scroll">
             <div class="plan-step__icon"><svg class="icon"><use href="#icon-handshake"></use></svg></div>
             <h3>Pick Up for Free</h3>
             <p>Visit your nearest location to collect it. No charge, ever.</p>
@@ -123,7 +123,16 @@
     <section class="section request-form-section">
       <div class="container request-form-section__inner">
         <h2>Tell Us What You Need</h2>
-        <form name="request-equipment" method="POST" data-netlify="true" class="site-form">
+        <p class="request-form-section__note">A few quick questions to get started — we'll ask for more detail only if it's relevant to what you need.</p>
+        <!--
+          Progressive disclosure (design refinement pass, 2026-07-05): only Name, Phone, and Equipment
+          Category are required to submit a basic request. All fields exist in the static HTML (required
+          for Netlify's build-time form detection) — request-equipment.js toggles the `hidden` attribute
+          on the follow-up field groups below based on the selected category, so a caregiver requesting
+          a cane sees a 3-field form, while someone requesting a hospital bed sees the extra fields that
+          actually matter for that item (weight capacity, room access, delivery vs. pickup).
+        -->
+        <form name="request-equipment" method="POST" data-netlify="true" class="site-form" id="request-equipment-form">
           <input type="hidden" name="form-name" value="request-equipment">
           <div class="form-field">
             <label for="req-name">Full Name</label>
@@ -134,23 +143,63 @@
             <input type="tel" id="req-phone" name="phone" required>
           </div>
           <div class="form-field">
-            <label for="req-email">Email Address</label>
-            <input type="email" id="req-email" name="email" required>
+            <label for="req-email">Email Address <span class="form-field__optional">(optional)</span></label>
+            <input type="email" id="req-email" name="email">
           </div>
           <div class="form-field">
-            <label for="req-equipment">What equipment do you need?</label>
-            <input type="text" id="req-equipment" name="equipment_needed" required>
+            <label for="req-category">What type of equipment do you need?</label>
+            <select id="req-category" name="equipment_category" required>
+              <option value="">Choose a category…</option>
+              <option value="Mobility (wheelchair, walker, cane, crutches)">Mobility (wheelchair, walker, cane, crutches)</option>
+              <option value="Bathroom Safety (shower chair, commode, tub bench)">Bathroom Safety (shower chair, commode, tub bench)</option>
+              <option value="Bed or Lift (hospital bed, patient lift, bed rails)">Bed or Lift (hospital bed, patient lift, bed rails)</option>
+              <option value="Respiratory / Daily Living (CPAP, reacher, lift chair)">Respiratory / Daily Living (CPAP, reacher, lift chair)</option>
+              <option value="Not sure / other">Not sure / other</option>
+            </select>
           </div>
+
+          <!-- Revealed only for Bed or Lift — the one category where extra detail genuinely changes what we can offer -->
+          <div class="form-field-group" id="req-beds-lift-fields" hidden>
+            <div class="form-field">
+              <label for="req-weight-capacity">Weight capacity needed</label>
+              <select id="req-weight-capacity" name="weight_capacity">
+                <option value="Standard">Standard</option>
+                <option value="Bariatric / heavy-duty">Bariatric / heavy-duty</option>
+                <option value="Not sure">Not sure</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label for="req-room-access">Room access at delivery location</label>
+              <select id="req-room-access" name="room_access">
+                <option value="Standard doorway">Standard doorway</option>
+                <option value="Narrow doorway">Narrow doorway</option>
+                <option value="Stairs involved">Stairs involved</option>
+              </select>
+            </div>
+            <fieldset class="form-field form-field--radio-group">
+              <legend>How would you like to get it?</legend>
+              <label class="form-field__radio-label"><input type="radio" name="delivery_preference" value="I can pick it up"> I can pick it up</label>
+              <label class="form-field__radio-label"><input type="radio" name="delivery_preference" value="I need delivery help"> I need delivery help</label>
+            </fieldset>
+          </div>
+
+          <!-- Revealed for every category except the blank default — a lightweight "which specific item" follow-up -->
+          <div class="form-field" id="req-specific-item-field" hidden>
+            <label for="req-specific-item">Which specific item, if you know it? <span class="form-field__optional">(optional)</span></label>
+            <input type="text" id="req-specific-item" name="specific_item" placeholder="e.g., rollator walker, shower transfer bench">
+          </div>
+
           <div class="form-field">
-            <label for="req-location">Preferred pickup location</label>
+            <label for="req-location">Preferred pickup location <span class="form-field__optional">(optional)</span></label>
             <select id="req-location" name="preferred_location">
+              <option value="">No preference</option>
               <option value="Charlottesville">Charlottesville</option>
               <option value="Elkton">Elkton</option>
               <option value="Palmyra">Palmyra</option>
             </select>
           </div>
           <div class="form-field">
-            <label for="req-details">Additional details</label>
+            <label for="req-details">Additional details <span class="form-field__optional">(optional)</span></label>
             <textarea id="req-details" name="additional_details"></textarea>
           </div>
           <button type="submit" class="btn-primary">Submit Your Request</button>
@@ -220,5 +269,6 @@
   </footer>
 
   <script src="../../global/nav.js" defer></script>
+  <script src="request-equipment.js" defer></script>
 </body>
 </html>

@@ -109,7 +109,12 @@
     <section class="section volunteer-form-section">
       <div class="container volunteer-form-section__inner">
         <h2>Apply to Volunteer</h2>
-        <form name="volunteer-application" method="POST" data-netlify="true" class="site-form">
+        <!--
+          Progressive disclosure (design refinement pass, 2026-07-05): only Name, Phone, and Role are
+          required. Role-specific follow-up fields reveal based on selection — all present in static HTML
+          for Netlify's build-time form detection; volunteer.js toggles `hidden` at runtime.
+        -->
+        <form name="volunteer-application" method="POST" data-netlify="true" class="site-form" id="volunteer-form">
           <input type="hidden" name="form-name" value="volunteer-application">
           <div class="form-field">
             <label for="vol-name">Full Name</label>
@@ -120,20 +125,41 @@
             <input type="tel" id="vol-phone" name="phone" required>
           </div>
           <div class="form-field">
-            <label for="vol-email">Email Address</label>
-            <input type="email" id="vol-email" name="email" required>
+            <label for="vol-email">Email Address <span class="form-field__optional">(optional)</span></label>
+            <input type="email" id="vol-email" name="email">
           </div>
           <div class="form-field">
             <label for="vol-role">Which role interests you?</label>
-            <select id="vol-role" name="role_interest">
+            <select id="vol-role" name="role_interest" required>
+              <option value="">Choose a role…</option>
               <option value="Repair Assistance">Repair Assistance</option>
               <option value="Warehouse Assistance">Warehouse Assistance</option>
               <option value="Pickup & Delivery">Pickup &amp; Delivery</option>
               <option value="Client Assistance / PR & Marketing">Client Assistance / PR &amp; Marketing</option>
             </select>
           </div>
+
+          <!-- Revealed only for Repair Assistance -->
+          <div class="form-field" id="vol-skills-field" hidden>
+            <label for="vol-skills">What repair or handyman skills do you have? <span class="form-field__optional">(optional)</span></label>
+            <input type="text" id="vol-skills" name="repair_skills" placeholder="e.g., basic mechanical repair, welding, carpentry">
+          </div>
+
+          <!-- Revealed only for Pickup & Delivery — the two things that actually determine whether this role fits -->
+          <div class="form-field-group" id="vol-pickup-fields" hidden>
+            <fieldset class="form-field form-field--radio-group">
+              <legend>Do you have a truck or large vehicle?</legend>
+              <label class="form-field__radio-label"><input type="radio" name="has_vehicle" value="Yes"> Yes</label>
+              <label class="form-field__radio-label"><input type="radio" name="has_vehicle" value="No"> No</label>
+            </fieldset>
+            <label class="form-field__radio-label">
+              <input type="checkbox" name="can_lift_50lbs" value="Yes">
+              I'm comfortable lifting 50+ lbs (e.g., hospital beds, wheelchairs)
+            </label>
+          </div>
+
           <div class="form-field">
-            <label for="vol-availability">Your availability</label>
+            <label for="vol-availability">Your availability <span class="form-field__optional">(optional)</span></label>
             <textarea id="vol-availability" name="availability"></textarea>
           </div>
           <button type="submit" class="btn-primary">Apply to Volunteer</button>
@@ -177,7 +203,7 @@
           <h4>Support</h4>
           <ul>
             <li><a href="../donate/donate.html">Donate Now</a></li>
-            <li><a href="volunteer.html">Volunteer</a></li>
+            <li><a href="volunteer.html" class="is-current-page" aria-current="page">Volunteer</a></li>
             <li><a href="../donate-equipment/donate-equipment.html">Donate Equipment</a></li>
             <li><a href="../locations/locations.html">Locations</a></li>
             <li><a href="../contact/contact.html">Contact</a></li>
@@ -203,5 +229,6 @@
   </footer>
 
   <script src="../../global/nav.js" defer></script>
+  <script src="volunteer.js" defer></script>
 </body>
 </html>

@@ -45,6 +45,18 @@
   --color-on-secondary: #ffffff;
   --color-on-error: #ffffff;
 
+  /* Tertiary + fixed tokens — newly exposed for category color-coding (design refinement pass, 2026-07-05).
+     Present in the original DESIGN.md export but not previously surfaced as CSS variables. */
+  --color-tertiary: #3d6700;
+  --color-tertiary-rgb: 61, 103, 0;
+  --color-on-tertiary: #ffffff;
+  --color-primary-fixed: #ffdcc3;
+  --color-on-primary-fixed-variant: #6e3900;
+  --color-tertiary-fixed: #b1f661;
+  --color-on-tertiary-fixed-variant: #2e4f00;
+  --color-primary-container: #b15f00;
+  --color-on-primary-container: #fffbff;
+
   /* Hero scrim / overlay (hero uses a light gradient scrim, not a dark one) */
   --hero-scrim: rgba(var(--color-surface-container-low-rgb), 0.85);
 
@@ -52,14 +64,16 @@
   --font-display: 'Literata', serif;
   --font-body: 'Lexend', sans-serif;
 
-  /* Font sizes — mobile-first base values */
-  --text-h1: 32px;
-  --text-h1-line-height: 40px;
+  /* Font sizes — fluid clamp() scaling replaces the old hard breakpoint jump (design refinement pass, 2026-07-05).
+     Formula: clamp(min, min-in-rem + slope-vw, max) where slope = (max-min)/(maxViewport-minViewport)*100,
+     tuned for a 375px mobile floor to a 1024px desktop ceiling so nothing jumps abruptly at tablet-landscape widths. */
+  --text-h1: clamp(2rem, 1.4222rem + 2.4653vw, 3rem);              /* 32px -> 48px, fluid 375px-1024px */
+  --text-h1-line-height: clamp(2.5rem, 1.9222rem + 2.4653vw, 3.5rem); /* 40px -> 56px */
   --text-h1-letter-spacing: -0.02em;
-  --text-h2: 24px;
-  --text-h2-line-height: 32px;
-  --text-h3: 24px;
-  --text-h3-line-height: 32px;
+  --text-h2: clamp(1.5rem, 1.2111rem + 1.2327vw, 2rem);            /* 24px -> 32px, fluid 375px-1024px */
+  --text-h2-line-height: clamp(2rem, 1.7111rem + 1.2327vw, 2.5rem); /* 32px -> 40px */
+  --text-h3: clamp(1.25rem, 1.1056rem + 0.6163vw, 1.5rem);          /* 20px -> 24px, fluid 375px-1024px */
+  --text-h3-line-height: clamp(1.75rem, 1.6056rem + 0.6163vw, 2rem); /* 28px -> 32px */
   --text-body-lg: 20px;
   --text-body-lg-line-height: 32px;
   --text-body: 18px;
@@ -95,12 +109,6 @@
   --radius-full: 9999px;
 }
 
-/* Desktop typography upgrade — min-width only, per mobile-first rule */
-@media (min-width: 769px) {
-  :root {
-    --text-h1: 48px;
-    --text-h1-line-height: 56px;
-    --text-h2: 32px;
-    --text-h2-line-height: 40px;
-  }
-}
+/* Desktop typography upgrade — no longer needed for h1/h2/h3: clamp() above scales fluidly
+   across all viewport widths without a breakpoint jump. Retained as an empty block marker
+   in case a future non-fluid property needs a desktop upgrade here. */

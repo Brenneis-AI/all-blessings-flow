@@ -112,7 +112,13 @@
       <div class="container donation-form-section__inner">
         <h2>Submit Donation Details</h2>
         <p class="donation-form-section__note">For larger items needing pickup coordination, like hospital beds.</p>
-        <form name="donate-equipment" method="POST" data-netlify="true" class="site-form">
+        <!--
+          Progressive disclosure (design refinement pass, 2026-07-05): only Name, Phone, and a description
+          of the item are required. The pickup/drop-off follow-up fields reveal based on the selection —
+          all present in static HTML for Netlify's build-time form detection; donate-equipment.js toggles
+          `hidden` at runtime.
+        -->
+        <form name="donate-equipment" method="POST" data-netlify="true" class="site-form" id="donate-equipment-form">
           <input type="hidden" name="form-name" value="donate-equipment">
           <div class="form-field">
             <label for="don-name">Full Name</label>
@@ -123,20 +129,51 @@
             <input type="tel" id="don-phone" name="phone" required>
           </div>
           <div class="form-field">
-            <label for="don-email">Email Address</label>
-            <input type="email" id="don-email" name="email" required>
+            <label for="don-email">Email Address <span class="form-field__optional">(optional)</span></label>
+            <input type="email" id="don-email" name="email">
           </div>
           <div class="form-field">
             <label for="don-item">What would you like to donate?</label>
-            <textarea id="don-item" name="item_description" required></textarea>
+            <textarea id="don-item" name="item_description" required placeholder="e.g., manual wheelchair, shower chair, hospital bed"></textarea>
           </div>
           <div class="form-field">
             <label for="don-pickup">Do you need pickup assistance?</label>
-            <select id="don-pickup" name="pickup_needed">
-              <option value="Yes">Yes</option>
+            <select id="don-pickup" name="pickup_needed" required>
+              <option value="">Choose one…</option>
+              <option value="Yes">Yes, I need pickup help</option>
               <option value="No">No, I can drop it off</option>
             </select>
           </div>
+
+          <!-- Revealed only when pickup assistance is needed — the details that actually matter for coordinating a pickup -->
+          <div class="form-field-group" id="don-pickup-fields" hidden>
+            <div class="form-field">
+              <label for="don-item-size">Item size</label>
+              <select id="don-item-size" name="item_size">
+                <option value="Small & light (fits in a car)">Small &amp; light (fits in a car)</option>
+                <option value="Large & heavy (e.g., hospital bed, needs a truck)">Large &amp; heavy (e.g., hospital bed, needs a truck)</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label for="don-pickup-address">Pickup address</label>
+              <input type="text" id="don-pickup-address" name="pickup_address">
+            </div>
+            <div class="form-field">
+              <label for="don-pickup-day">Preferred pickup day <span class="form-field__optional">(optional)</span></label>
+              <input type="text" id="don-pickup-day" name="preferred_pickup_day">
+            </div>
+          </div>
+
+          <!-- Revealed only when dropping off — points them to the right page instead of duplicating the Locations page -->
+          <div class="form-field" id="don-dropoff-field" hidden>
+            <label for="don-dropoff-location">Preferred drop-off location</label>
+            <select id="don-dropoff-location" name="dropoff_location">
+              <option value="Charlottesville">Charlottesville</option>
+              <option value="Elkton">Elkton</option>
+              <option value="Palmyra">Palmyra</option>
+            </select>
+          </div>
+
           <button type="submit" class="btn-primary">Submit Donation Details</button>
           <p class="form-message form-message--success" hidden>Thank you for your generosity — we'll follow up to coordinate drop-off or pickup.</p>
           <p class="form-message form-message--error" hidden>Something went wrong. Please call us at (434) 422-8888 or email info@allblessingsflow.org.</p>
@@ -179,7 +216,7 @@
           <ul>
             <li><a href="../donate/donate.html">Donate Now</a></li>
             <li><a href="../volunteer/volunteer.html">Volunteer</a></li>
-            <li><a href="donate-equipment.html">Donate Equipment</a></li>
+            <li><a href="donate-equipment.html" class="is-current-page" aria-current="page">Donate Equipment</a></li>
             <li><a href="../locations/locations.html">Locations</a></li>
             <li><a href="../contact/contact.html">Contact</a></li>
             <li><a href="#">Privacy Policy</a></li>
@@ -204,5 +241,6 @@
   </footer>
 
   <script src="../../global/nav.js" defer></script>
+  <script src="donate-equipment.js" defer></script>
 </body>
 </html>
